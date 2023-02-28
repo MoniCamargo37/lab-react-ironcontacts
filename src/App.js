@@ -6,24 +6,24 @@ function App() {
   const [contactList, setContactList] = useState(contacts.slice(0, 5));
   const [availableContacts, setAvailableContacts] = useState(contacts.slice(5));
 
-  const addRandomContact = () => {
+  const handleAddRandomContact = () => {
     const randomIndex = Math.floor(Math.random() * availableContacts.length);
     const randomContact = availableContacts[randomIndex];
     setContactList(prevContactList => [...prevContactList, randomContact]);
     setAvailableContacts(prevAvailableContacts => prevAvailableContacts.filter(contact => contact !== randomContact));
   };
   
-  const sortByName = () => {
+  const handleSortByName = () => {
     const sortedContacts = contactList.sort((a, b) => a.name.localeCompare(b.name));
     setContactList([...sortedContacts]);
   };
 
-  const sortByPopularity = () => {
+  const handleSortByPopularity = () => {
     const sortedContacts = contactList.sort((a, b) => b.popularity - a.popularity);
     setContactList([...sortedContacts]);
   };
 
-  const removeContact = (id) => {
+  const handleRemoveContact = (id) => {
     const updatedContactList = contactList.filter(contact => contact.id !== id);
     setContactList([...updatedContactList]);
   };
@@ -32,9 +32,9 @@ function App() {
     <div>
       <h1>IronContacts</h1>
       <div className="btnTop">
-        <button onClick={addRandomContact}>Add Random Contact</button>
-        <button onClick={sortByName}>Sort by Name</button>
-        <button onClick={sortByPopularity}>Sort by Popularity</button>
+        <button onClick={handleAddRandomContact}>Add Random Contact</button>
+        <button onClick={handleSortByName}>Sort by Name</button>
+        <button onClick={handleSortByPopularity}>Sort by Popularity</button>
       </div>
       <table>
         <thead>
@@ -59,7 +59,7 @@ function App() {
               <td>{wonOscar ? <span role="img" aria-label="Trophy">🏆</span> : null}</td>
               <td>{wonEmmy ? <span role="img" aria-label="Trophy">🏆</span> : null}</td>
               <td>
-                <button onClick={() => removeContact(id)}>Remove</button>
+                <button onClick={() => handleRemoveContact(id)}>Remove</button>
               </td>
             </tr>
           ))}
