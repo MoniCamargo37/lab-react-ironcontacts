@@ -7,10 +7,12 @@ function App() {
   const [availableContacts, setAvailableContacts] = useState(contacts.slice(5));
 
   const handleAddRandomContact = () => {
-    const randomIndex = Math.floor(Math.random() * availableContacts.length);
-    const randomContact = availableContacts[randomIndex];
-    setContactList(prevContactList => [...prevContactList, randomContact]);
-    setAvailableContacts(prevAvailableContacts => prevAvailableContacts.filter(contact => contact !== randomContact));
+    if(availableContacts.length > 0) {
+      const randomIndex = Math.floor(Math.random() * availableContacts.length);
+      const randomContact = availableContacts[randomIndex];
+      setContactList(prevContactList => [...prevContactList, randomContact]);
+      setAvailableContacts(prevAvailableContacts => prevAvailableContacts.filter(contact => contact !== randomContact));
+    }
   };
   
   const handleSortByName = () => {
