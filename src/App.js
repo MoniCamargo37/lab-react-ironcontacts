@@ -1,12 +1,15 @@
 import "./App.css";
 import React, { useState } from "react";
 import contacts from "./contacts.json";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 function App() {
   const [contactList, setContactList] = useState(contacts.slice(0, 5));
   const [availableContacts, setAvailableContacts] = useState(contacts.slice(5));
 
   const handleAddRandomContact = () => {
+    //if(contactList.length < availableContact.length)
     if(availableContacts.length > 0) {
       const randomIndex = Math.floor(Math.random() * availableContacts.length);
       const randomContact = availableContacts[randomIndex];
@@ -25,9 +28,37 @@ function App() {
     setContactList([...sortedContacts]);
   };
 
-  const handleRemoveContact = (id) => {
-    const updatedContactList = contactList.filter(contact => contact.id !== id);
-    setContactList([...updatedContactList]);
+  // const handleRemoveContact = (id) => {
+  //   const updatedContactList = contactList.filter(contact => contact.id !== id);
+  //   setContactList([...updatedContactList]);
+  // };
+
+  // const handleRemoveContact = (id) => {
+  //   if (window.confirm("Are you sure you want to delete this contact?")) {
+  //     const updatedContactList = contactList.filter(contact => contact.id !== id);
+  //     setContactList(updatedContactList);
+  //   }
+  // };
+
+  //react-confirm-alert . Lo he usado para dar un poco de estilo a la ventana de confirmación
+  const handleRemoveContact = (id, contactList, setContactList) => {
+    confirmAlert({
+      title: 'Delete contact',
+      message: '¿Are you sure you want to delete this contact?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            const updatedContactList = contactList.filter(contact => contact.id !== id);
+            setContactList(updatedContactList);
+          }
+        },
+        {
+          label: 'No',
+          onClick: () => { return; }
+        }
+      ]
+    });
   };
 
   return (
@@ -61,7 +92,7 @@ function App() {
               <td>{wonOscar ? <span role="img" aria-label="Trophy">🏆</span> : null}</td>
               <td>{wonEmmy ? <span role="img" aria-label="Trophy">🏆</span> : null}</td>
               <td>
-                <button onClick={() => handleRemoveContact(id)}>Remove</button>
+                <button onClick={() => handleRemoveContact(id, contactList, setContactList)}>Remove</button>
               </td>
             </tr>
           ))}
