@@ -57,10 +57,10 @@ function App() {
         {
           label: 'Yes',
           onClick: () => {
-            const contactToDelete = contactList.find(contact => contact.id === id);
+            const contactDelete = contactList.find(contact => contact.id === id);
             const updatedContactList = contactList.filter(contact => contact.id !== id);
-            if (!updatedContactList.some(contact => contact.id === contactToDelete.id)) {
-              setContactList([...updatedContactList, contactToDelete]);
+            if (!updatedContactList.some(contact => contact.id === contactDelete.id)) {
+              setContactList([...updatedContactList, contactDelete]);
             }
           }
         },
