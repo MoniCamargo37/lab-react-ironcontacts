@@ -30,6 +30,7 @@ function App() {
 
 
   //react-confirm-alert . Lo he usado para dar un poco de estilo a la ventana de confirmación
+
   // const handleRemoveContact = (id) => {
   //   confirmAlert({
   //     title: 'Delete contact',
@@ -58,10 +59,8 @@ function App() {
           label: 'Yes',
           onClick: () => {
             const contactDelete = contactList.find(contact => contact.id === id);
-            const updatedContactList = contactList.filter(contact => contact.id !== id);
-            if (!updatedContactList.some(contact => contact.id === contactDelete.id)) {
-              setContactList([...updatedContactList, contactDelete]);
-            }
+            setAvailableContacts(prevAvailableContacts => [...prevAvailableContacts, contactDelete]); //Aquí agregamos el contacto
+            setContactList(prevContactList => prevContactList.filter(contact => contact !== contactDelete));
           }
         },
         {
